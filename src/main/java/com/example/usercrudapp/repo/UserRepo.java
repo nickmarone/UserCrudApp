@@ -18,8 +18,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
     List<User> findByEmail(@Param("email") String email);
     @Query(value = "SELECT u FROM User u WHERE u.phoneNumber =:phoneNumber")
     List<User> findByPhoneNumber(@Param("phoneNumber") String phoneNumber);
-    @Query(value = "SELECT u FROM User u WHERE (:name is null OR LOWER(u.name) = LOWER(:name)) " +
-            "AND (:surname is null OR LOWER(u.surname) = LOWER(:surname)")
+    @Query(value = "SELECT u FROM User u WHERE (:name is null OR LOWER(u.name) = LOWER(:name)) AND (:surname is null OR LOWER(u.surname) = LOWER(:surname))")
     List<User> findByNameOrSurname(@Param("name") String name, @Param("surname")String surname);
 
 }

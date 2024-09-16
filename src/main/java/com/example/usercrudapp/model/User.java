@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name="User")
+@Table(name="users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -12,7 +12,8 @@ import lombok.*;
 @ToString
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
+    @SequenceGenerator(name = "users_seq", sequenceName = "users_id_seq", initialValue = 1, allocationSize = 1)
     private Long id;
     @Column(name="name")
     private String name;
@@ -22,6 +23,6 @@ public class User {
     private String email;
     @Column(name="address")
     private String address;
-    @Column(name="phoneNumber")
+    @Column(name="phonenumber")
     private String phoneNumber;
 }

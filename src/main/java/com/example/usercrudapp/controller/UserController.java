@@ -51,6 +51,23 @@ public class UserController {
         }
     }
 
+    @GetMapping("/users/user")
+    public ResponseEntity<List<User>> getUsersByNameOrLastName
+            (@RequestParam(required = false) String name,@RequestParam(required = false) String surname ) {
+        try {
+            List<User> userList = new ArrayList<>();
+            userService.findByNameOrSurname(Optional.ofNullable(name),Optional.ofNullable(surname)).forEach(userList::add);
+
+            if (userList.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(userList, HttpStatus.OK);
+        } catch(Exception ex) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/users")
     public ResponseEntity<User> addUser(@RequestBody User user) {
         try {
@@ -84,7 +101,7 @@ public class UserController {
 
 
     @PostMapping("/users/upload")
-    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("users") MultipartFile file) {
         String message = "";
 
         if (CSVProcessor.hasCSVFormat(file)) {
@@ -115,7 +132,7 @@ public class UserController {
     }
 
     @DeleteMapping("/users/deleteAll")
-    public ResponseEntity<HttpStatus> deleteUserById(@PathVariable Long id) {
+    public ResponseEntity<HttpStatus> deleteUserById() {
         try {
             userService.deleteAll();
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

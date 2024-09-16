@@ -38,11 +38,11 @@ public class CSVProcessor {
 
             for (CSVRecord csvRecord : csvRecords) {
                 User user = new User();
-                user.setName(csvRecord.get("Name"));
-                user.setName(csvRecord.get("Surname"));
-                user.setName(csvRecord.get("Email"));
-                user.setName(csvRecord.get("Address"));
-                user.setName(csvRecord.get("Phone"));
+                user.setName(csvRecord.get(Constants.CSV_HEAD_NAME));
+                user.setSurname(csvRecord.get(Constants.CSV_HEAD_SURNAME));
+                user.setEmail(csvRecord.get(Constants.CSV_HEAD_EMAIL));
+                user.setAddress(csvRecord.get(Constants.CSV_HEAD_ADDRESS));
+                user.setPhoneNumber(csvRecord.get(Constants.CSV_HEAD_PHONE_NUMBER));
 
                 users.add(user);
             }

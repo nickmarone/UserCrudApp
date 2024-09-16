@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.usercrudapp.util.TextUtil.isAbsent;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -57,11 +59,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByNameOrSurname(String name, String surname) {
-        if(name == null && surname == null) {
+    public List<User> findByNameOrSurname(Optional<String> name, Optional<String> surname) {
+        if(isAbsent(name) && isAbsent(surname)) {
             return findAll();
         }
-       return repo.findByNameOrSurname(name,surname);
+        if(isAbsent(name)){
+            return findBySurname(surname.orElse(""));
+        }
+        if(isAbsent(surname)) {
+            return findByName(name.orElse(""));
+        }
+       return repo.findByNameOrSurname(name.get(),surname.get());
     }
 
     @Override

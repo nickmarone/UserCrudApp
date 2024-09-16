@@ -20,7 +20,7 @@ public interface UserService {
 
     void deleteAll();
 
-    List<User> findByNameOrSurname(String name, String surname);
+    List<User> findByNameOrSurname(Optional<String> name, Optional<String> surname);
 
     List<User> findByName(String name);
 

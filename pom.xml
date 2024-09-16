@@ -16,7 +16,7 @@
     <name>UserCrudApp</name>
 
     <properties>
-        <java.version>17</java.version>
+        <java.version>22</java.version>
     </properties>
 
     <dependencies>
@@ -42,6 +42,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
             <version>1.11.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
